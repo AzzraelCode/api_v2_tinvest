@@ -44,10 +44,11 @@ class Hola:
             if df is None: continue
             dataframes.append(df)
 
+        df = pd.concat(dataframes, ignore_index=True)
+
         # надо что-то сделать с дублями бумаг по счетам
         # todo: Есть крутые спецы по панде? Надо оптимизировать ;)
         # <быдлокод_start
-        df = pd.concat(dataframes, ignore_index=True)
         dup_cond =df.figi.duplicated() # индекс дублей
         if dup_cond.sum() > 0:
             duples = df[dup_cond] # дф дублей (без оригиналов)
