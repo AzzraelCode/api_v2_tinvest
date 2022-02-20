@@ -66,7 +66,7 @@ class Hola:
 
         # суммы продаж, налоги и комиссии
         df['sell_sum'] = (df['current_price'] + df['current_nkd']) * df['quantity']
-        df['comission'] = df['sell_sum'] * 0.003
+        df['comission'] = df['current_price'] * df['quantity'] * 0.003
         df['tax'] = df.apply(lambda row: row['expected_yield'] * 0.013 if row['expected_yield'] > 0 else 0, axis=1)
 
         print(df.head(1000))
