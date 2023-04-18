@@ -28,6 +28,8 @@ def run():
     except RequestError as e:
         print(str(e))
 
+if __name__ == '__main__':
+    run()
 
 ############################### <=== CLASS ===> ############################
 
@@ -109,6 +111,7 @@ class Hola:
         :return:
         """
         r: PortfolioResponse = self.client.operations.get_portfolio(account_id=account_id)
+        # print(r)
         if len(r.positions) < 1: return None
         df = pd.DataFrame([self.portfolio_pose_todict(p) for p in r.positions])
         return df

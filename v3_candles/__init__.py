@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from pandas import DataFrame
 from ta.trend import ema_indicator
@@ -27,10 +27,11 @@ def run():
     try:
         with Client(creds.token_ro_acc_main) as client:
             r = client.market_data.get_candles(
-                figi='USD000UTSTOM',
-                from_=datetime.utcnow() - timedelta(days=7),
-                to=datetime.utcnow(),
-                interval=CandleInterval.CANDLE_INTERVAL_HOUR # см. utils.get_all_candles
+                # figi='USD000UTSTOM',
+                figi='BBG004730N88', # SBER
+                from_=datetime.utcnow() - timedelta(hours=10),
+                to=datetime.now() ,
+                interval=CandleInterval.CANDLE_INTERVAL_15_MIN # см. utils.get_all_candles
             )
             # print(r)
 
@@ -39,9 +40,9 @@ def run():
             df['ema'] = ema_indicator(close=df['close'], window=9)
 
             print(df[['time', 'close', 'ema']].tail(30))
-            ax=df.plot(x='time', y='close')
-            df.plot(ax=ax, x='time', y='ema')
-            plt.show()
+            # ax=df.plot(x='time', y='close')
+            # df.plot(ax=ax, x='time', y='ema')
+            # plt.show()
 
     except RequestError as e:
         print(str(e))

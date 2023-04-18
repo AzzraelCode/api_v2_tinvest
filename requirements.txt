@@ -1,7 +1,6 @@
 grpcio
 grpcio-tools
 tinkoff-investments
-tinkoff
 pandas
 matplotlib
 ta
